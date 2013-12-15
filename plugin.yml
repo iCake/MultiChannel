@@ -1,0 +1,11 @@
+name: MultiChannel
+main: us.kpvpdev.multichannel.MultiChannel
+version: 0.1
+
+author: CakePvP
+website: kpvp.in
+
+commands:
+  channel:
+  chat:
+    aliases: [c]
