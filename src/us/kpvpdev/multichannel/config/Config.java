@@ -13,15 +13,15 @@ public class Config {
 
 	private static FileConfiguration config;
 	private static File configFile;
-	
+
 	public static void loadConfig() {
 		saveConfig();
-		
+
 		FileConfiguration config = getConfig();
-		
+
 		for(String str : config.getConfigurationSection("").getKeys(false).toArray(new String[0])) {
 			ChatChannel channel = new ChatChannel(str, config.getString(str + ".owner"), config.getString(str + ".password"), config.getStringList(str + ".members"));
-			
+
 			if(!MultiChannel.channels.containsKey(channel.getName())) {
 				channel.addAll();
 				MultiChannel.channels.put(channel.getName(), channel);
@@ -55,5 +55,5 @@ public class Config {
 			config.save(configFile);
 		} catch(IOException e) { }
 	}
-	
+
 }

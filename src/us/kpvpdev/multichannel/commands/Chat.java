@@ -13,7 +13,7 @@ public class Chat implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String tag, String[] args) {
 		if(sender instanceof Player) {
 			Player player = (Player)sender;
-			
+
 			if(args.length == 0) {
 				sender.sendMessage("§cUsage:§f /" + tag + " <toggle, msg>");
 			} else if(args.length >= 1) {
@@ -24,15 +24,15 @@ public class Chat implements CommandExecutor {
 						} else {
 							MultiChannel.chatting.add(sender.getName());
 						}
-						
+
 						sender.sendMessage("§cChannel chat§f " + (MultiChannel.chatting.contains(sender.getName()) ? "enabled" : "disabled"));
 					} else {
 						StringBuilder builder = new StringBuilder();
-						
+
 						for(int i = 0; i < args.length; i++) {
 							builder.append(args[i] + " ");
 						}
-						
+
 						ChatChannel channel = MultiChannel.playerChannels.get(sender.getName());
 						String msg = "§7[§b" + channel.getName() + "§7]§r " + player.getDisplayName() + " §7>§f " + builder.toString();
 						channel.broadcast(msg);
@@ -42,11 +42,11 @@ public class Chat implements CommandExecutor {
 					sender.sendMessage("§cYou're not in a channel!");
 				}
 			}
-			
+
 			return true;
 		}
-		
+
 		return false;
 	}
-	
+
 }
