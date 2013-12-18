@@ -37,6 +37,10 @@ public class PlayerListener implements Listener {
 		if(MultiChannel.chatting.contains(player.getName())) {
 			MultiChannel.chatting.remove(player.getName());
 		}
+
+		if(MultiChannel.spying.contains(player.getName())) {
+			MultiChannel.spying.remove(player.getName());
+		}
 	}
 
 	@EventHandler(ignoreCancelled=true)
@@ -50,6 +54,10 @@ public class PlayerListener implements Listener {
 		if(MultiChannel.chatting.contains(player.getName())) {
 			MultiChannel.chatting.remove(player.getName());
 		}
+
+		if(MultiChannel.spying.contains(player.getName())) {
+			MultiChannel.spying.remove(player.getName());
+		}
 	}
 
 	@EventHandler(ignoreCancelled=true)
@@ -58,18 +66,10 @@ public class PlayerListener implements Listener {
 
 		if(MultiChannel.playerChannels.containsKey(player.getName()) && MultiChannel.chatting.contains(player.getName())) {
 			ChatChannel channel = MultiChannel.playerChannels.get(player.getName());
-			String msg = "§7[§b" + channel.getName() + "§7]§r " + player.getDisplayName() + " §7>§f " + e.getMessage();
-
-			for(String str : channel.getMembers()) {
-				Player member = Bukkit.getPlayer(str);
-
-				if(member != null) {
-					member.sendMessage(msg);
-				}
-			}
+			channel.sendMessage(player, e.getMessage());
 
 			e.getRecipients().clear();
-			Bukkit.getLogger().info(ChatColor.stripColor(msg));
+			Bukkit.getLogger().info(ChatColor.stripColor("§7[§b" + channel.getName() + "§7]§r " + player.getDisplayName() + " §7>§f " + e.getMessage()));
 		}
 	}
 

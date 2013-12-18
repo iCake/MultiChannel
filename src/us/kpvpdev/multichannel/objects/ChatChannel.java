@@ -71,6 +71,26 @@ public class ChatChannel {
 		}
 	}
 
+	public void sendMessage(Player player, String msg) {
+		for(String str : getMembers()) {
+			Player member = Bukkit.getPlayer(str);
+
+			if(member != null) {
+				member.sendMessage("§7[§b" + getName() + "§7]§r " + player.getDisplayName() + " §7>§f " + msg);
+			}
+		}
+
+		if(!MultiChannel.spying.isEmpty()) {
+			for(String str : MultiChannel.spying) {
+				Player spy = Bukkit.getPlayer(str);
+
+				if(spy != null) {
+					spy.sendMessage("§7[§b" + getName() + "§7]§r " + player.getDisplayName() + " §7>§f " + msg);
+				}
+			}
+		}
+	}
+
 	public void saveData() {
 		FileConfiguration config = Config.getConfig();
 		config.set(name + ".owner", owner);

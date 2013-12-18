@@ -15,7 +15,7 @@ public class Chat implements CommandExecutor {
 			Player player = (Player)sender;
 
 			if(args.length == 0) {
-				sender.sendMessage("§cUsage:§f /" + tag + " <toggle, msg>");
+				sender.sendMessage("§cUsage:§f /" + tag + " <toggle/t, msg>");
 			} else if(args.length >= 1) {
 				if(MultiChannel.playerChannels.containsKey(sender.getName())) {
 					if(args.length == 1 && (args[0].equalsIgnoreCase("toggle") || args[0].equalsIgnoreCase("t"))) {
@@ -34,9 +34,8 @@ public class Chat implements CommandExecutor {
 						}
 
 						ChatChannel channel = MultiChannel.playerChannels.get(sender.getName());
-						String msg = "§7[§b" + channel.getName() + "§7]§r " + player.getDisplayName() + " §7>§f " + builder.toString();
-						channel.broadcast(msg);
-						Bukkit.getLogger().info(ChatColor.stripColor(msg));
+						channel.sendMessage(player, builder.toString());
+						Bukkit.getLogger().info(ChatColor.stripColor("§7[§b" + channel.getName() + "§7]§r " + player.getDisplayName() + " §7>§f " + builder.toString()));
 					}
 				} else {
 					sender.sendMessage("§cYou're not in a channel!");

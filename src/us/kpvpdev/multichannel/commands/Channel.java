@@ -16,6 +16,10 @@ public class Channel implements CommandExecutor {
 			if(args.length == 0) {
 				sender.sendMessage("§cMultiChannel §f-§c Created by CakePvP");
 				sender.sendMessage("§cUsage:§f /" + tag + " <create, join, leave, info, setpass, setowner, delete>");
+
+				if(sender.hasPermission("multichannel.admin")) {
+					sender.sendMessage("§cAdmin usage:§f /" + tag + " <spy>");
+				}
 			} else if(args.length == 1) {
 				if(args[0].equalsIgnoreCase("leave")) {
 					if(sender.hasPermission("multichannel.leave")) {
@@ -92,9 +96,25 @@ public class Channel implements CommandExecutor {
 					} else {
 						sender.sendMessage("§cYou do not have permission to use this!");
 					}
+				} else if(args[0].equalsIgnoreCase("spy")) {
+					if(sender.hasPermission("multichannel.admin")) {
+						if(MultiChannel.spying.contains(sender.getName())) {
+							MultiChannel.spying.remove(sender.getName());
+						} else {
+							MultiChannel.spying.add(sender.getName());
+						}
+
+						sender.sendMessage(MultiChannel.spying.contains(sender.getName()) ? "§cYou can now see messages from all channels!" : "§cYou can no longer see all channel messages!");
+					} else {
+						sender.sendMessage("§cYou do not have permission to use this!");
+					}
 				} else {
 					sender.sendMessage("§cSubcommand not recognised");
 					sender.sendMessage("§cUsage:§f /" + tag + " <create, join, leave, info, setpass, setowner, delete>");
+
+					if(sender.hasPermission("multichannel.admin")) {
+						sender.sendMessage("§cAdmin usage:§f /" + tag + " <spy>");
+					}
 				}
 			} else if(args.length >= 2) {
 				if(args[0].equalsIgnoreCase("create")) {
@@ -245,6 +265,10 @@ public class Channel implements CommandExecutor {
 				} else {
 					sender.sendMessage("§cSubcommand not recognised");
 					sender.sendMessage("§cUsage:§f /" + tag + " <create, join, leave, info, setpass, setowner, delete>");
+
+					if(sender.hasPermission("multichannel.admin")) {
+						sender.sendMessage("§cAdmin usage:§f /" + tag + " <spy>");
+					}
 				}
 			}
 

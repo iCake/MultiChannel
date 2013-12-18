@@ -17,6 +17,7 @@ public class MultiChannel extends JavaPlugin {
 	public static HashMap<String, ChatChannel> channels = new HashMap<String, ChatChannel>();
 	public static HashMap<String, ChatChannel> playerChannels = new HashMap<String, ChatChannel>();
 	public static ArrayList<String> chatting = new ArrayList<String>();
+	public static ArrayList<String> spying = new ArrayList<String>();
 
 	public void onEnable() {
 		multichannel = this;
@@ -38,6 +39,9 @@ public class MultiChannel extends JavaPlugin {
 
 		chatting.clear();
 		chatting = null;
+		
+		spying.clear();
+		spying = null;
 	}
 
 	private static MultiChannel multichannel;
