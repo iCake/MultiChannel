@@ -7,10 +7,12 @@ import org.bukkit.entity.Player;
 
 import us.kpvpdev.multichannel.MultiChannel;
 import us.kpvpdev.multichannel.config.Lang;
+import us.kpvpdev.multichannel.config.Settings;
 import us.kpvpdev.multichannel.objects.ChatChannel;
 
 public class Chat implements CommandExecutor {
 
+	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String tag, String[] args) {
 		if(sender instanceof Player) {
 			Player player = (Player)sender;
@@ -36,7 +38,10 @@ public class Chat implements CommandExecutor {
 
 						ChatChannel channel = MultiChannel.playerChannels.get(sender.getName());
 						channel.sendMessage(player, builder.toString());
-						Bukkit.getLogger().info(ChatColor.stripColor("§7[§b" + channel.getName() + "§7]§r " + player.getDisplayName() + " §7>§f " + builder.toString()));
+
+						if(Settings.LOG_TO_CONSOLE) {
+							Bukkit.getLogger().info(ChatColor.stripColor("§7[§b" + channel.getName() + "§7]§r " + player.getDisplayName() + " §7>§f " + builder.toString()));
+						}
 					}
 				} else {
 					sender.sendMessage(Lang.NOT_IN_CHANNEL);

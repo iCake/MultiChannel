@@ -4,14 +4,15 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 
-import java.util.Arrays;
-
 import us.kpvpdev.multichannel.MultiChannel;
-import us.kpvpdev.multichannel.config.Lang;
+import us.kpvpdev.multichannel.config.*;
 import us.kpvpdev.multichannel.objects.ChatChannel;
+
+import java.util.Arrays;
 
 public class Channel implements CommandExecutor {
 
+	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String tag, String[] args) {
 		if(sender instanceof Player) {
 			if(args.length == 0) {
@@ -109,6 +110,19 @@ public class Channel implements CommandExecutor {
 					} else {
 						sender.sendMessage(Lang.NO_PERMS);
 					}
+				} else if(args[0].equalsIgnoreCase("reload")) {
+					if(sender.hasPermission("multichannel.admin")) {
+						MultiChannel.getInstance().saveResource("settings.yml", false);
+						MultiChannel.getInstance().saveResource("lang.yml", false);
+
+						Config.reloadConfig();
+						Lang.reloadConfig();
+						Settings.loadConfig();
+
+						sender.sendMessage(Lang.RELOADED_CONFIGS);
+					} else {
+						sender.sendMessage(Lang.NO_PERMS);
+					}
 				} else {
 					sender.sendMessage(Lang.SUBCOMMAND_NOT_RECOGINSED);
 					sender.sendMessage(Lang.COMMAND_USAGE.replaceAll("§t", tag));
@@ -145,12 +159,24 @@ public class Channel implements CommandExecutor {
 									if(args.length >= 3) {
 										String password = args[2];
 
-										if(channel.getPassword().equals(password) || (sender.hasPermission("multichannel.bypass"))) {
-											channel.getMembers().add(sender.getName());
-											channel.broadcast(Lang.CHANNEL_JOIN.replaceAll("§t", sender.getName()));
-											channel.saveData();
+										if(channel.getPassword().equals(password) || (sender.hasPermission("multichannel.bypass") && Settings.ADMINS_BYPASS_JOIN)) {
+											if(Settings.PERMS_PER_CHANNEL) {
+												if(sender.hasPermission("multichannel.join." + channel.getName().toLowerCase())) {
+													channel.getMembers().add(sender.getName());
+													channel.broadcast(Lang.CHANNEL_JOIN.replaceAll("§t", sender.getName()));
+													channel.saveData();
 
-											MultiChannel.playerChannels.put(sender.getName(), channel);
+													MultiChannel.playerChannels.put(sender.getName(), channel);
+												} else {
+													sender.sendMessage(Lang.NO_PERMS_CHANNEL.replaceAll("§t", channel.getName().toLowerCase()));
+												}
+											} else {
+												channel.getMembers().add(sender.getName());
+												channel.broadcast(Lang.CHANNEL_JOIN.replaceAll("§t", sender.getName()));
+												channel.saveData();
+
+												MultiChannel.playerChannels.put(sender.getName(), channel);
+											}
 										} else {
 											sender.sendMessage(Lang.CHANNEL_INCORRECT_PASSWORD);
 										}
@@ -158,11 +184,23 @@ public class Channel implements CommandExecutor {
 										sender.sendMessage(Lang.CHANNEL_REQUIRES_PASSWORD);
 									}
 								} else {
-									channel.getMembers().add(sender.getName());
-									channel.broadcast(Lang.CHANNEL_JOIN.replaceAll("§t", sender.getName()));
-									channel.saveData();
-									
-									MultiChannel.playerChannels.put(sender.getName(), channel);
+									if(Settings.PERMS_PER_CHANNEL) {
+										if(sender.hasPermission("multichannel.join." + channel.getName().toLowerCase())) {
+											channel.getMembers().add(sender.getName());
+											channel.broadcast(Lang.CHANNEL_JOIN.replaceAll("§t", sender.getName()));
+											channel.saveData();
+
+											MultiChannel.playerChannels.put(sender.getName(), channel);
+										} else {
+											sender.sendMessage(Lang.NO_PERMS_CHANNEL.replaceAll("§t", channel.getName().toLowerCase()));
+										}
+									} else {
+										channel.getMembers().add(sender.getName());
+										channel.broadcast(Lang.CHANNEL_JOIN.replaceAll("§t", sender.getName()));
+										channel.saveData();
+
+										MultiChannel.playerChannels.put(sender.getName(), channel);
+									}
 								}
 							} else {
 								sender.sendMessage(Lang.CHANNEL_NOT_FOUND.replaceAll("§t", args[1]));

@@ -14,7 +14,7 @@ public class Lang {
 	private static File configFile;
 
 	public static String COMMAND_USAGE = "§cUsage:§f /§t <create, join, leave, info, setpass, setowner, delete>";
-	public static String ADMIN_COMMAND_USAGE = "§cAdmin usage:§f /§t <spy>";
+	public static String ADMIN_COMMAND_USAGE = "§cAdmin usage:§f /§t <spy, reload>";
 
 	public static String LEAVE_CHANNEL_OWNER = "§cYou must assign somebody else as the owner of the group";
 	public static String LEAVE_COMMAND_USAGE = "§cUsage:§f /§t setowner <member>";
@@ -47,8 +47,11 @@ public class Lang {
 	public static String ALREADY_IN_CHANNEL = "§cYou're already in a channel!";
 	public static String PLAYER_NOT_IN_CHANNEL = "§cThat member isn't in your channel!";
 	public static String NO_PERMS = "§cYou do not have permission to use this!";
+	public static String NO_PERMS_CHANNEL = "§cYou need the §t permission to join this channel!";
 	public static String SUBCOMMAND_NOT_RECOGINSED = "§cSubcommand not recognised";
 	public static String PLAYER_NOT_FOUND = "§cPlayer not found!";
+
+	public static String RELOADED_CONFIGS = "§cReloaded all configs!";
 
 	public static void loadConfig() {
 		saveConfig();
@@ -88,8 +91,11 @@ public class Lang {
 		ALREADY_IN_CHANNEL = config.getString("Error.alreadyInChannel").replaceAll("&", "§");
 		PLAYER_NOT_IN_CHANNEL = config.getString("Error.playerNotInChannel").replaceAll("&", "§");
 		NO_PERMS = config.getString("Error.noPerms").replaceAll("&", "§");
+		NO_PERMS_CHANNEL = config.getString("Error.noPermsChannel").replaceAll("&", "§");
 		SUBCOMMAND_NOT_RECOGINSED = config.getString("Error.subcommandNotRecognised").replaceAll("&", "§");
 		PLAYER_NOT_FOUND = config.getString("Error.playerNotFound").replaceAll("&", "§");
+
+		RELOADED_CONFIGS = config.getString("Config.reloaded").replaceAll("&", "§");
 	}
 
 	public static FileConfiguration getConfig() {

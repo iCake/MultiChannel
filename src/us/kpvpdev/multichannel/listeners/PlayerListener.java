@@ -8,6 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.*;
 
 import us.kpvpdev.multichannel.MultiChannel;
+import us.kpvpdev.multichannel.config.Settings;
 import us.kpvpdev.multichannel.objects.ChatChannel;
 
 public class PlayerListener implements Listener {
@@ -16,12 +17,14 @@ public class PlayerListener implements Listener {
 	public void onJoin(PlayerJoinEvent e) {
 		Player player = e.getPlayer();
 
-		for(ChatChannel channel : MultiChannel.channels.values()) {
-			if(channel.getMembers().contains(player.getName())) {
-				MultiChannel.playerChannels.put(player.getName(), channel);
-				player.sendMessage("§7You're in the §b" + channel.getName() + " §7channel");
+		if(Settings.JOIN_MESSAGE && !MultiChannel.channels.isEmpty()) {
+			for(ChatChannel channel : MultiChannel.channels.values()) {
+				if(channel.getMembers().contains(player.getName())) {
+					MultiChannel.playerChannels.put(player.getName(), channel);
+					player.sendMessage("§7You're in the §b" + channel.getName() + " §7channel");
 
-				break;
+					break;
+				}
 			}
 		}
 	}
@@ -69,7 +72,10 @@ public class PlayerListener implements Listener {
 			channel.sendMessage(player, e.getMessage());
 
 			e.getRecipients().clear();
-			Bukkit.getLogger().info(ChatColor.stripColor("§7[§b" + channel.getName() + "§7]§r " + player.getDisplayName() + " §7>§f " + e.getMessage()));
+
+			if(Settings.LOG_TO_CONSOLE) {
+				Bukkit.getLogger().info(ChatColor.stripColor("§7[§b" + channel.getName() + "§7]§r " + player.getDisplayName() + " §7>§f " + e.getMessage()));
+			}
 		}
 	}
 

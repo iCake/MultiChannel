@@ -1,0 +1,7 @@
+# This config confusing you?
+# Look at the BukkitDev page, it'll help you!
+# -> http://dev.bukkit.org/bukkit-plugins/multichannel/
+PermissionsPerChannel: false
+AdminsBypassJoinPassword: false
+JoinMessages: true
+LogMsgsToConsole: true

@@ -1,6 +1,6 @@
 Command:
   usage: '&cUsage:&f /&t <create, join, leave, info, setpass, setowner, delete>'
-  adminUsage: '&cAdmin usage:&f /&t <spy>'
+  adminUsage: '&cAdmin usage:&f /&t <spy, reload>'
 Leave:
   channelOwner: '&cYou must assign somebody else as the owner of the group'
   usage: '&cUsage:&f /&t setowner <member>'
@@ -33,5 +33,8 @@ Error:
   alreadyInChannel: '&cYou''re already in a channel!'
   playerNotInChannel: '&cThat member isn''t in your channel!'
   noPerms: '&cYou do not have permission to use this!'
+  noPermsChannel: '&cYou need the &t permission to join this channel!'
   subcommandNotRecognised: '&cSubcommand not recognised'
   playerNotFound: '&cPlayer not found!'
+Config:
+  reloaded: '&cReloaded all configs!'
