@@ -6,6 +6,7 @@ import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 
 import us.kpvpdev.multichannel.MultiChannel;
+import us.kpvpdev.multichannel.config.Lang;
 import us.kpvpdev.multichannel.objects.ChatChannel;
 
 public class Chat implements CommandExecutor {
@@ -38,7 +39,7 @@ public class Chat implements CommandExecutor {
 						Bukkit.getLogger().info(ChatColor.stripColor("§7[§b" + channel.getName() + "§7]§r " + player.getDisplayName() + " §7>§f " + builder.toString()));
 					}
 				} else {
-					sender.sendMessage("§cYou're not in a channel!");
+					sender.sendMessage(Lang.NOT_IN_CHANNEL);
 				}
 			}
 
