@@ -1,7 +1,9 @@
+# Filetypes
 *.class
-
-# Package Files #
+*.classpath
 *.jar
 *.project
+
+# Directories
 .settings/
-*.classpath
+bin/
