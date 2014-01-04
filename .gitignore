@@ -2,8 +2,6 @@
 
 # Package Files #
 *.jar
-*.war
-*.ear
 *.project
 .settings/
 *.classpath
