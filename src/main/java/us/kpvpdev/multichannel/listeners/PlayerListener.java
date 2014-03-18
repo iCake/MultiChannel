@@ -21,7 +21,7 @@ public class PlayerListener implements Listener {
 			for(ChatChannel channel : MultiChannel.channels.values()) {
 				if(channel.getMembers().contains(player.getName())) {
 					MultiChannel.playerChannels.put(player.getName(), channel);
-					player.sendMessage("ง7You're in the งb" + channel.getName() + " ง7channel");
+					player.sendMessage("ยง7You're in the ยงb" + channel.getName() + " ยง7channel");
 
 					break;
 				}
@@ -74,7 +74,7 @@ public class PlayerListener implements Listener {
 			e.getRecipients().clear();
 
 			if(Settings.LOG_TO_CONSOLE) {
-				Bukkit.getLogger().info(ChatColor.stripColor("ง7[งb" + channel.getName() + "ง7]งr " + player.getDisplayName() + " ง7>งf " + e.getMessage()));
+				Bukkit.getLogger().info(ChatColor.stripColor("ยง7[ยงb" + channel.getName() + "ยง7]ยงr " + player.getDisplayName() + " ยง7>ยงf " + e.getMessage()));
 			}
 		}
 	}

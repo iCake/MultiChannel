@@ -66,7 +66,7 @@ public class ChatChannel {
 			Player player = Bukkit.getPlayer(str);
 
 			if(player != null) {
-				player.sendMessage("งb" + msg);
+				player.sendMessage("ยงb" + msg);
 			}
 		}
 	}
@@ -76,7 +76,7 @@ public class ChatChannel {
 			Player member = Bukkit.getPlayer(str);
 
 			if(member != null) {
-				member.sendMessage("ง7[งb" + getName() + "ง7]งr " + player.getDisplayName() + " ง7>งf " + msg);
+				member.sendMessage("ยง7[ยงb" + getName() + "ยง7]ยงr " + player.getDisplayName() + " ยง7>ยงf " + msg);
 			}
 		}
 
@@ -85,7 +85,7 @@ public class ChatChannel {
 				Player spy = Bukkit.getPlayer(str);
 
 				if(spy != null) {
-					spy.sendMessage("ง7[งb" + getName() + "ง7]งr " + player.getDisplayName() + " ง7>งf " + msg);
+					spy.sendMessage("ยง7[ยงb" + getName() + "ยง7]ยงr " + player.getDisplayName() + " ยง7>ยงf " + msg);
 				}
 			}
 		}
