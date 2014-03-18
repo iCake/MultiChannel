@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 
 import us.kpvpdev.multichannel.MultiChannel;
 import us.kpvpdev.multichannel.config.Config;
+import us.kpvpdev.multichannel.config.Lang;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +67,7 @@ public class ChatChannel {
 			Player player = Bukkit.getPlayer(str);
 
 			if(player != null) {
-				player.sendMessage("§b" + msg);
+                player.sendMessage(Lang.colorize("&b") + msg);
 			}
 		}
 	}
@@ -76,7 +77,7 @@ public class ChatChannel {
 			Player member = Bukkit.getPlayer(str);
 
 			if(member != null) {
-				member.sendMessage("§7[§b" + getName() + "§7]§r " + player.getDisplayName() + " §7>§f " + msg);
+				member.sendMessage(Lang.CHANNEL_MESSAGE.replace("{channel}", getName()).replace("{player}", player.getDisplayName()).replace("{message}", msg));
 			}
 		}
 
@@ -85,7 +86,7 @@ public class ChatChannel {
 				Player spy = Bukkit.getPlayer(str);
 
 				if(spy != null) {
-					spy.sendMessage("§7[§b" + getName() + "§7]§r " + player.getDisplayName() + " §7>§f " + msg);
+                    spy.sendMessage(Lang.CHANNEL_MESSAGE.replace("{channel}", getName()).replace("{player}", player.getDisplayName()).replace("{message}", msg));
 				}
 			}
 		}
