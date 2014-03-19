@@ -57,5 +57,4 @@ public class MultiChannel extends JavaPlugin {
 	public static MultiChannel getInstance() {
 		return multichannel;
 	}
-
 }

@@ -16,11 +16,11 @@ public class Channel implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String tag, String[] args) {
 		if(sender instanceof Player) {
 			if(args.length == 0) {
-				sender.sendMessage("§cMultiChannel §f-§c Created by CakePvP");
-				sender.sendMessage(Lang.COMMAND_USAGE.replaceAll("§t", tag));
+				sender.sendMessage(Lang.colorize("&cMultiChannel &f-&c Created by CakePvP"));
+				sender.sendMessage(Lang.COMMAND_USAGE.replace("{command}", tag));
 
 				if(sender.hasPermission("multichannel.admin")) {
-					sender.sendMessage(Lang.ADMIN_COMMAND_USAGE.replaceAll("§t", tag));
+					sender.sendMessage(Lang.ADMIN_COMMAND_USAGE.replace("{command}", tag));
 				}
 			} else if(args.length == 1) {
 				if(args[0].equalsIgnoreCase("leave")) {
@@ -30,10 +30,10 @@ public class Channel implements CommandExecutor {
 
 							if(channel.getOwner().equals(sender.getName()) && channel.getMembers().size() -1 >= 1) {
 								sender.sendMessage(Lang.LEAVE_CHANNEL_OWNER);
-								sender.sendMessage(Lang.LEAVE_COMMAND_USAGE.replaceAll("§t", tag));
+								sender.sendMessage(Lang.LEAVE_COMMAND_USAGE.replace("{command}", tag));
 							} else {
 								if(channel.getMembers().size() - 1 <= 0) {
-									sender.sendMessage(Lang.CHANNEL_LEAVE_LAST_MEMBER.replaceAll("§t", channel.getName()));
+									sender.sendMessage(Lang.CHANNEL_LEAVE_LAST_MEMBER.replace("{channel}", channel.getName()));
 									sender.sendMessage(Lang.CHANNEL_LEAVE_EMPTY);
 									channel.remove();
 								} else {
@@ -55,17 +55,17 @@ public class Channel implements CommandExecutor {
 						if(MultiChannel.playerChannels.containsKey(sender.getName())) {
 							ChatChannel channel = MultiChannel.playerChannels.get(sender.getName());
 
-							sender.sendMessage("§cMultiChannel §f-§c Created by CakePvP");
-							sender.sendMessage(Lang.CHANNEL_NAME.replaceAll("§t", channel.getName()));
-							sender.sendMessage(Lang.CHANNEL_OWNER.replaceAll("§t", channel.getOwner()));
+							sender.sendMessage("Â§cMultiChannel Â§f-Â§c Created by CakePvP");
+							sender.sendMessage(Lang.CHANNEL_NAME.replace("{name}", channel.getName()));
+							sender.sendMessage(Lang.CHANNEL_OWNER.replace("{owner}", channel.getOwner()));
 
 							if(!channel.getPassword().equalsIgnoreCase("")) {
-								sender.sendMessage(Lang.CHANNEL_PASSWORD.replaceAll("§t", channel.getPassword()));
+								sender.sendMessage(Lang.CHANNEL_PASSWORD.replace("{password}", channel.getPassword()));
 							}
 
-							sender.sendMessage(Lang.CHANNEL_MEMBERS.replaceAll("§t", String.valueOf(channel.getMembers())));
+							sender.sendMessage(Lang.CHANNEL_MEMBERS.replace("{members}", String.valueOf(channel.getMembers())));
 						} else {
-							sender.sendMessage(Lang.NOT_IN_CHANNEL);
+							sender.sendMessage(Lang.OTHER_NOT_IN_CHANNEL);
 						}
 					} else {
 						sender.sendMessage(Lang.NO_PERMS);
@@ -93,7 +93,7 @@ public class Channel implements CommandExecutor {
 								sender.sendMessage(Lang.CHANNEL_NOT_OWNER);
 							}
 						} else {
-							sender.sendMessage(Lang.NOT_IN_CHANNEL);
+							sender.sendMessage(Lang.OTHER_NOT_IN_CHANNEL);
 						}
 					} else {
 						sender.sendMessage(Lang.NO_PERMS);
@@ -125,10 +125,10 @@ public class Channel implements CommandExecutor {
 					}
 				} else {
 					sender.sendMessage(Lang.SUBCOMMAND_NOT_RECOGINSED);
-					sender.sendMessage(Lang.COMMAND_USAGE.replaceAll("§t", tag));
+					sender.sendMessage(Lang.COMMAND_USAGE.replace("{command}", tag));
 
 					if(sender.hasPermission("multichannel.admin")) {
-						sender.sendMessage(Lang.ADMIN_COMMAND_USAGE.replaceAll("§t", tag));
+						sender.sendMessage(Lang.ADMIN_COMMAND_USAGE.replace("{command}", tag));
 					}
 				}
 			} else if(args.length >= 2) {
@@ -141,7 +141,7 @@ public class Channel implements CommandExecutor {
 							MultiChannel.channels.put(channel.getName(), channel);
 							MultiChannel.playerChannels.put(sender.getName(), channel);
 
-							sender.sendMessage(Lang.CHANNEL_CREATED.replaceAll("§t", channel.getName()));
+							sender.sendMessage(Lang.CHANNEL_CREATED.replace("{channel}", channel.getName()));
 							sender.sendMessage(Lang.CHANNEL_CREATED_TALK);
 						} else {
 							sender.sendMessage(Lang.ALREADY_IN_CHANNEL);
@@ -163,16 +163,16 @@ public class Channel implements CommandExecutor {
 											if(Settings.PERMS_PER_CHANNEL) {
 												if(sender.hasPermission("multichannel.join." + channel.getName().toLowerCase())) {
 													channel.getMembers().add(sender.getName());
-													channel.broadcast(Lang.CHANNEL_JOIN.replaceAll("§t", sender.getName()));
+													channel.broadcast(Lang.CHANNEL_JOIN.replace("{player}", sender.getName()));
 													channel.saveData();
 
 													MultiChannel.playerChannels.put(sender.getName(), channel);
 												} else {
-													sender.sendMessage(Lang.NO_PERMS_CHANNEL.replaceAll("§t", channel.getName().toLowerCase()));
+													sender.sendMessage(Lang.NO_PERMS_CHANNEL.replace("{channel}", channel.getName().toLowerCase()));
 												}
 											} else {
 												channel.getMembers().add(sender.getName());
-												channel.broadcast(Lang.CHANNEL_JOIN.replaceAll("§t", sender.getName()));
+												channel.broadcast(Lang.CHANNEL_JOIN.replace("{player}", sender.getName()));
 												channel.saveData();
 
 												MultiChannel.playerChannels.put(sender.getName(), channel);
@@ -187,23 +187,23 @@ public class Channel implements CommandExecutor {
 									if(Settings.PERMS_PER_CHANNEL) {
 										if(sender.hasPermission("multichannel.join." + channel.getName().toLowerCase())) {
 											channel.getMembers().add(sender.getName());
-											channel.broadcast(Lang.CHANNEL_JOIN.replaceAll("§t", sender.getName()));
+											channel.broadcast(Lang.CHANNEL_JOIN.replace("{player}", sender.getName()));
 											channel.saveData();
 
 											MultiChannel.playerChannels.put(sender.getName(), channel);
 										} else {
-											sender.sendMessage(Lang.NO_PERMS_CHANNEL.replaceAll("§t", channel.getName().toLowerCase()));
+											sender.sendMessage(Lang.NO_PERMS_CHANNEL.replace("{channel}", channel.getName().toLowerCase()));
 										}
 									} else {
 										channel.getMembers().add(sender.getName());
-										channel.broadcast(Lang.CHANNEL_JOIN.replaceAll("§t", sender.getName()));
+										channel.broadcast(Lang.CHANNEL_JOIN.replace("{player}", sender.getName()));
 										channel.saveData();
 
 										MultiChannel.playerChannels.put(sender.getName(), channel);
 									}
 								}
 							} else {
-								sender.sendMessage(Lang.CHANNEL_NOT_FOUND.replaceAll("§t", args[1]));
+								sender.sendMessage(Lang.CHANNEL_NOT_FOUND.replace("{channel}", args[1]));
 							}
 						} else {
 							sender.sendMessage(Lang.ALREADY_IN_CHANNEL);
@@ -219,17 +219,17 @@ public class Channel implements CommandExecutor {
 							if(MultiChannel.playerChannels.containsKey(target.getName())) {
 								ChatChannel channel = MultiChannel.playerChannels.get(target.getName());
 
-								sender.sendMessage("§cMultiChannel §f-§c Created by CakePvP");
-								sender.sendMessage(Lang.CHANNEL_NAME.replaceAll("§t", channel.getName()));
-								sender.sendMessage(Lang.CHANNEL_OWNER.replaceAll("§t", channel.getOwner()));
+								sender.sendMessage("Â§cMultiChannel Â§f-Â§c Created by CakePvP");
+								sender.sendMessage(Lang.CHANNEL_NAME.replace("{name}", channel.getName()));
+								sender.sendMessage(Lang.CHANNEL_OWNER.replace("{owner}", channel.getOwner()));
 
 								if(!channel.getPassword().equalsIgnoreCase("")) {
-									sender.sendMessage(Lang.CHANNEL_PASSWORD.replaceAll("§t", channel.getPassword()));
+									sender.sendMessage(Lang.CHANNEL_PASSWORD.replace("{password}", channel.getPassword()));
 								}
 
-								sender.sendMessage(Lang.CHANNEL_MEMBERS.replaceAll("§t", String.valueOf(channel.getMembers())));
+								sender.sendMessage(Lang.CHANNEL_MEMBERS.replace("{members}", String.valueOf(channel.getMembers())));
 							} else {
-								sender.sendMessage(Lang.OTHER_NOT_IN_CHANNEL.replaceAll("§t", target.getName()));
+								sender.sendMessage(Lang.NOT_IN_CHANNEL.replace("{player}", target.getName()));
 							}
 						} else {
 							sender.sendMessage(Lang.PLAYER_NOT_FOUND);
@@ -250,7 +250,7 @@ public class Channel implements CommandExecutor {
 								sender.sendMessage(Lang.CHANNEL_NOT_OWNER);
 							}
 						} else {
-							sender.sendMessage(Lang.NOT_IN_CHANNEL);
+							sender.sendMessage(Lang.OTHER_NOT_IN_CHANNEL);
 						}
 					} else {
 						sender.sendMessage(Lang.NO_PERMS);
@@ -263,7 +263,7 @@ public class Channel implements CommandExecutor {
 							if(channel.getOwner().equals(sender.getName())) {
 								if(channel.getMembers().contains(args[1])) {
 									channel.setOwner(args[1]);
-									channel.broadcast(Lang.CHANNEL_NEW_OWNER.replaceAll("§t", channel.getOwner()));
+									channel.broadcast(Lang.CHANNEL_NEW_OWNER.replace("{owner}", channel.getOwner()));
 									channel.saveData();
 								} else {
 									sender.sendMessage(Lang.PLAYER_NOT_IN_CHANNEL);
@@ -272,7 +272,7 @@ public class Channel implements CommandExecutor {
 								sender.sendMessage(Lang.CHANNEL_NOT_OWNER);
 							}
 						} else {
-							sender.sendMessage(Lang.NOT_IN_CHANNEL);
+							sender.sendMessage(Lang.OTHER_NOT_IN_CHANNEL);
 						}
 					} else {
 						sender.sendMessage(Lang.NO_PERMS);
@@ -294,19 +294,19 @@ public class Channel implements CommandExecutor {
 							}
 
 							channel.remove();
-							sender.sendMessage(Lang.CHANNEL_DELETED.replaceAll("§t", channel.getName()));
+							sender.sendMessage(Lang.CHANNEL_DELETED.replace("{channel}", channel.getName()));
 						} else {
-							sender.sendMessage(Lang.CHANNEL_NOT_FOUND.replaceAll("§t", args[1]));
+							sender.sendMessage(Lang.CHANNEL_NOT_FOUND.replace("{channel}", args[1]));
 						}
 					} else {
 						sender.sendMessage(Lang.NO_PERMS);
 					}
 				} else {
 					sender.sendMessage(Lang.SUBCOMMAND_NOT_RECOGINSED);
-					sender.sendMessage(Lang.COMMAND_USAGE.replaceAll("§t", tag));
+					sender.sendMessage(Lang.COMMAND_USAGE.replace("{command}", tag));
 
 					if(sender.hasPermission("multichannel.admin")) {
-						sender.sendMessage(Lang.ADMIN_COMMAND_USAGE.replaceAll("§t", tag));
+						sender.sendMessage(Lang.ADMIN_COMMAND_USAGE.replace("{command}", tag));
 					}
 				}
 			}

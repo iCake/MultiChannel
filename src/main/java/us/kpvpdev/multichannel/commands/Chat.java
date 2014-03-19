@@ -18,7 +18,7 @@ public class Chat implements CommandExecutor {
 			Player player = (Player)sender;
 
 			if(args.length == 0) {
-				sender.sendMessage("§cUsage:§f /" + tag + " <toggle/t, msg>");
+				sender.sendMessage(Lang.colorize("&cUsage:&f /" + tag + " <toggle/t, msg>"));
 			} else if(args.length >= 1) {
 				if(MultiChannel.playerChannels.containsKey(sender.getName())) {
 					if(args.length == 1 && (args[0].equalsIgnoreCase("toggle") || args[0].equalsIgnoreCase("t"))) {
@@ -28,7 +28,7 @@ public class Chat implements CommandExecutor {
 							MultiChannel.chatting.add(sender.getName());
 						}
 
-						sender.sendMessage("§cChannel chat§f " + (MultiChannel.chatting.contains(sender.getName()) ? "enabled" : "disabled"));
+						sender.sendMessage(Lang.CHANNEL_TOGGLE.replace("{toggle}", (MultiChannel.chatting.contains(sender.getName()) ? "enabled" : "disabled")));
 					} else {
 						StringBuilder builder = new StringBuilder();
 
@@ -40,7 +40,7 @@ public class Chat implements CommandExecutor {
 						channel.sendMessage(player, builder.toString());
 
 						if(Settings.LOG_TO_CONSOLE) {
-							Bukkit.getLogger().info(ChatColor.stripColor("§7[§b" + channel.getName() + "§7]§r " + player.getDisplayName() + " §7>§f " + builder.toString()));
+							Bukkit.getLogger().info(ChatColor.stripColor("&7[&b" + channel.getName() + "&7]&r " + player.getDisplayName() + " &7>&f " + builder.toString()));
 						}
 					}
 				} else {

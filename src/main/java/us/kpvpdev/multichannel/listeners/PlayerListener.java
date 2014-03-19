@@ -8,6 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.*;
 
 import us.kpvpdev.multichannel.MultiChannel;
+import us.kpvpdev.multichannel.config.Lang;
 import us.kpvpdev.multichannel.config.Settings;
 import us.kpvpdev.multichannel.objects.ChatChannel;
 
@@ -21,7 +22,7 @@ public class PlayerListener implements Listener {
 			for(ChatChannel channel : MultiChannel.channels.values()) {
 				if(channel.getMembers().contains(player.getName())) {
 					MultiChannel.playerChannels.put(player.getName(), channel);
-					player.sendMessage("§7You're in the §b" + channel.getName() + " §7channel");
+					player.sendMessage(Lang.colorize("&7You're in the &b" + channel.getName() + " &7channel"));
 
 					break;
 				}
@@ -74,7 +75,7 @@ public class PlayerListener implements Listener {
 			e.getRecipients().clear();
 
 			if(Settings.LOG_TO_CONSOLE) {
-				Bukkit.getLogger().info(ChatColor.stripColor("§7[§b" + channel.getName() + "§7]§r " + player.getDisplayName() + " §7>§f " + e.getMessage()));
+				Bukkit.getLogger().info(ChatColor.stripColor("[" + channel.getName() + "] " + player.getDisplayName() + " > " + e.getMessage()));
 			}
 		}
 	}
