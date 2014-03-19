@@ -138,6 +138,6 @@ public class Lang {
 	}
     
 	public static String colorize(String msg) {
-    	return ChatColor.translateAlternateColorCodes('&', msg);
+		return ChatColor.translateAlternateColorCodes('&', msg);
     }
 }
