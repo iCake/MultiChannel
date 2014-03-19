@@ -14,16 +14,16 @@ public class Lang {
 	private static FileConfiguration config;
 	private static File configFile;
 
-    public static String CHANNEL_MESSAGE = "&7[&b{channel}&7]&r {player} &7>&f {message}";
+	public static String CHANNEL_MESSAGE = "&7[&b{channel}&7]&r {player} &7>&f {message}";
 	public static String COMMAND_USAGE = "&cUsage:&f /{command} <create, join, leave, info, setpass, setowner, delete>";
 	public static String ADMIN_COMMAND_USAGE = "&cAdmin usage:&f /{command} <spy, reload>";
-    public static String CHAT_COMMAND_USAGE = "&cUsage:&f / {command} <toggle/t, msg>";
+	public static String CHAT_COMMAND_USAGE = "&cUsage:&f / {command} <toggle/t, msg>";
 
 
-    public static String LEAVE_CHANNEL_OWNER = "&cYou must assign somebody else as the owner of the group";
+	public static String LEAVE_CHANNEL_OWNER = "&cYou must assign somebody else as the owner of the group";
 	public static String LEAVE_COMMAND_USAGE = "&cUsage:&f /{command} setowner <member>";
 
-    public static String CHANNEL_TOGGLE = "&cChannel chat&f {toggle}";
+	public static String CHANNEL_TOGGLE = "&cChannel chat&f {toggle}";
 	public static String CHANNEL_LEAVE_LAST_MEMBER = "&cYou were the last remaining member of&f {channel} &cchannel";
 	public static String CHANNEL_LEAVE_EMPTY = "&cIt has been removed because it is empty";
 	public static String CHANNEL_JOIN = "{player} has joined the channel";
@@ -61,15 +61,15 @@ public class Lang {
 	public static void loadConfig() {
 		saveConfig();
 
-        CHANNEL_MESSAGE = getFromConfig("Channel.message");
+		CHANNEL_MESSAGE = getFromConfig("Channel.message");
 		COMMAND_USAGE = getFromConfig("Command.usage");
 		ADMIN_COMMAND_USAGE = getFromConfig("Command.adminUsage");
-        CHAT_COMMAND_USAGE = getFromConfig("Command.chatUsage");
+		CHAT_COMMAND_USAGE = getFromConfig("Command.chatUsage");
 
 		LEAVE_CHANNEL_OWNER = getFromConfig("Leave.channelOwner");
 		LEAVE_COMMAND_USAGE = getFromConfig("Leave.usage");
 
-        CHANNEL_TOGGLE = getFromConfig("Channel.toggle");
+		CHANNEL_TOGGLE = getFromConfig("Channel.toggle");
 		CHANNEL_LEAVE_LAST_MEMBER = getFromConfig("Channel.lastMemberLeave");
 		CHANNEL_LEAVE_EMPTY = getFromConfig("Channel.leaveEmpty");
 		CHANNEL_JOIN = getFromConfig("Channel.join");
@@ -132,12 +132,12 @@ public class Lang {
 		} catch(IOException e) { }
 	}
 
-    private static String getFromConfig(String path) {
-        FileConfiguration config = getConfig();
-        return colorize(config.getString(path));
+	private static String getFromConfig(String path) {
+    	FileConfiguration config = getConfig();
+    	return colorize(config.getString(path));
     }
     
     public static String colorize(String msg) {
-        return ChatColor.translateAlternateColorCodes('&', msg);
+    	return ChatColor.translateAlternateColorCodes('&', msg);
     }
 }
