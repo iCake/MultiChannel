@@ -135,9 +135,9 @@ public class Lang {
 	private static String getFromConfig(String path) {
 		FileConfiguration config = getConfig();
 		return colorize(config.getString(path));
-    }
+	}
     
-    public static String colorize(String msg) {
+	public static String colorize(String msg) {
     	return ChatColor.translateAlternateColorCodes('&', msg);
     }
 }
