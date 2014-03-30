@@ -14,70 +14,70 @@ import us.kpvpdev.multichannel.objects.ChatChannel;
 
 public class PlayerListener implements Listener {
 
-	@EventHandler
-	public void onJoin(PlayerJoinEvent e) {
-		Player player = e.getPlayer();
+    @EventHandler
+    public void onJoin(PlayerJoinEvent e) {
+        Player player = e.getPlayer();
 
-		if(Settings.JOIN_MESSAGE && !MultiChannel.channels.isEmpty()) {
-			for(ChatChannel channel : MultiChannel.channels.values()) {
-				if(channel.getMembers().contains(player.getName())) {
-					MultiChannel.playerChannels.put(player.getName(), channel);
-					player.sendMessage(Lang.colorize("&7You're in the &b" + channel.getName() + " &7channel"));
+        if(Settings.JOIN_MESSAGE && !MultiChannel.channels.isEmpty()) {
+            for(ChatChannel channel : MultiChannel.channels.values()) {
+                if(channel.getMembers().contains(player.getName())) {
+                    MultiChannel.playerChannels.put(player.getName(), channel);
+                    player.sendMessage(Lang.colorize("&7You're in the &b" + channel.getName() + " &7channel"));
 
-					break;
-				}
-			}
-		}
-	}
+                    break;
+                }
+            }
+        }
+    }
 
-	@EventHandler
-	public void onQuit(PlayerQuitEvent e) {
-		Player player = e.getPlayer();
+    @EventHandler
+    public void onQuit(PlayerQuitEvent e) {
+        Player player = e.getPlayer();
 
-		if(MultiChannel.playerChannels.containsKey(player.getName())) {
-			MultiChannel.playerChannels.remove(player.getName());
-		}
+        if(MultiChannel.playerChannels.containsKey(player.getName())) {
+            MultiChannel.playerChannels.remove(player.getName());
+        }
 
-		if(MultiChannel.chatting.contains(player.getName())) {
-			MultiChannel.chatting.remove(player.getName());
-		}
+        if(MultiChannel.chatting.contains(player.getName())) {
+            MultiChannel.chatting.remove(player.getName());
+        }
 
-		if(MultiChannel.spying.contains(player.getName())) {
-			MultiChannel.spying.remove(player.getName());
-		}
-	}
+        if(MultiChannel.spying.contains(player.getName())) {
+            MultiChannel.spying.remove(player.getName());
+        }
+    }
 
-	@EventHandler(ignoreCancelled=true)
-	public void onKick(PlayerKickEvent e) {
-		Player player = e.getPlayer();
+    @EventHandler(ignoreCancelled=true)
+    public void onKick(PlayerKickEvent e) {
+        Player player = e.getPlayer();
 
-		if(MultiChannel.playerChannels.containsKey(player.getName())) {
-			MultiChannel.playerChannels.remove(player.getName());
-		}
+        if(MultiChannel.playerChannels.containsKey(player.getName())) {
+            MultiChannel.playerChannels.remove(player.getName());
+        }
 
-		if(MultiChannel.chatting.contains(player.getName())) {
-			MultiChannel.chatting.remove(player.getName());
-		}
+        if(MultiChannel.chatting.contains(player.getName())) {
+            MultiChannel.chatting.remove(player.getName());
+        }
 
-		if(MultiChannel.spying.contains(player.getName())) {
-			MultiChannel.spying.remove(player.getName());
-		}
-	}
+        if(MultiChannel.spying.contains(player.getName())) {
+            MultiChannel.spying.remove(player.getName());
+        }
+    }
 
-	@EventHandler(ignoreCancelled=true)
-	public void onChat(AsyncPlayerChatEvent e) {
-		Player player = e.getPlayer();
+    @EventHandler(ignoreCancelled=true)
+    public void onChat(AsyncPlayerChatEvent e) {
+        Player player = e.getPlayer();
 
-		if(MultiChannel.playerChannels.containsKey(player.getName()) && MultiChannel.chatting.contains(player.getName())) {
-			ChatChannel channel = MultiChannel.playerChannels.get(player.getName());
-			channel.sendMessage(player, e.getMessage());
+        if(MultiChannel.playerChannels.containsKey(player.getName()) && MultiChannel.chatting.contains(player.getName())) {
+            ChatChannel channel = MultiChannel.playerChannels.get(player.getName());
+            channel.sendMessage(player, e.getMessage());
 
-			e.getRecipients().clear();
+            e.getRecipients().clear();
 
-			if(Settings.LOG_TO_CONSOLE) {
-				Bukkit.getLogger().info(ChatColor.stripColor("[" + channel.getName() + "] " + player.getDisplayName() + " > " + e.getMessage()));
-			}
-		}
-	}
+            if(Settings.LOG_TO_CONSOLE) {
+                Bukkit.getLogger().info(ChatColor.stripColor("[" + channel.getName() + "] " + player.getDisplayName() + " > " + e.getMessage()));
+            }
+        }
+    }
 
 }
